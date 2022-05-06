@@ -30,6 +30,7 @@ public class ForexController implements Initializable {
     }
 
     public void searchForex(ActionEvent actionEvent) {
+        System.out.println("title:"+StageStore.stage.getTitle());
         String DateInput="";
         if (txtDateInput.getText()!=null){
             DateInput = txtDateInput.getText();

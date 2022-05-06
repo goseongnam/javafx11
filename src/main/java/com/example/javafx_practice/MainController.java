@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
@@ -206,7 +207,14 @@ public class MainController implements Initializable {
     }
 
     public void btnBookmarkDelete(ActionEvent actionEvent) throws IOException {
-
+        if (currencytmp==null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Look, a Warning Dialog");
+            alert.setContentText("이미 삭제할 타겟이 존재하지 않습니다.");
+            alert.showAndWait();
+            return;
+        }
         File file = new File("C:\\fxfile\\bookmark.txt");
         String path = "C:\\fxfile"; //폴더 경로
         String arrForex[] = new String[5];
@@ -221,16 +229,44 @@ public class MainController implements Initializable {
 
     public String[] DeleteBookmark(String[] arrForex, String target){
         String[] result= new String[5];
-
+        boolean success = false;
         for (int i=0;i<result.length;i++){
-            if(arrForex[i].equals(target)) {
+            if(arrForex[i]!=null&&arrForex[i].equals(target)) {
                 for (int j=i; j+1<result.length;j++){
                     result[j]=arrForex[j+1];
                 }
+                success=true;
                 break;
             }
             else result[i]=arrForex[i];
         }
+        if (!success){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Look, a Warning Dialog");
+            alert.setContentText("이미 삭제할 타겟이 존재하지 않습니다.");
+            alert.showAndWait();
+        }
         return result;
+    }
+
+
+    public void moveBookmark(ActionEvent actionEvent) throws IOException {
+
+        Button o = (Button)actionEvent.getSource();
+        String name = o.getText();
+        if (name.contains("즐")){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Look, a Warning Dialog");
+            alert.setContentText("즐겨찾기 추가되지 않은 항목은 이동할 수 없습니다");
+            alert.showAndWait();
+            return;
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("forex.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 700, 500);
+        StageStore.stage.setTitle(name);
+        StageStore.stage.setScene(scene);
+        StageStore.stage.show();
     }
 }

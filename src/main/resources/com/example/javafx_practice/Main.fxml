@@ -17,10 +17,10 @@
         <TextField fx:id="txtExInput" layoutX="262.0" layoutY="168.0" prefHeight="40.0" prefWidth="213.0" promptText="환율 계산 입력..." />
         <TextField fx:id="txtExOutput" layoutX="262.0" layoutY="222.0" prefHeight="40.0" prefWidth="213.0" promptText="환율 계산 출력..." />
         <Button fx:id="btnBookmarkDelete" layoutX="473.0" layoutY="38.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="95.0" text="즐겨찾기 삭제 " onAction="#btnBookmarkDelete"/>
-        <Button fx:id="btnBookmark1" layoutX="581.0" layoutY="38.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기1" />
-        <Button fx:id="btnBookmark2" layoutX="581.0" layoutY="103.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기2" />
-        <Button fx:id="btnBookmark3" layoutX="581.0" layoutY="168.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기3" />
-        <Button fx:id="btnBookmark4" layoutX="581.0" layoutY="231.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기4" />
-        <Button fx:id="btnBookmark5" layoutX="581.0" layoutY="293.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기5" />
+        <Button fx:id="btnBookmark1" layoutX="581.0" layoutY="38.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기1" onAction="#moveBookmark" />
+        <Button fx:id="btnBookmark2" layoutX="581.0" layoutY="103.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기2" onAction="#moveBookmark" />
+        <Button fx:id="btnBookmark3" layoutX="581.0" layoutY="168.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기3" onAction="#moveBookmark"/>
+        <Button fx:id="btnBookmark4" layoutX="581.0" layoutY="231.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기4" onAction="#moveBookmark"/>
+        <Button fx:id="btnBookmark5" layoutX="581.0" layoutY="293.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="즐겨찾기5" onAction="#moveBookmark"/>
     </children>
 </Pane>
