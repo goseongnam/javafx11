@@ -185,9 +185,6 @@ public class MainController implements Initializable {
         set.add(test);
 
         if (count+1!=set.size()){
-            System.out.println("count:" + count+1);
-            System.out.println("test: "+test);
-            System.out.println("set.size: " + set.size());
             System.out.print("중복 발견");
             return false;
         }

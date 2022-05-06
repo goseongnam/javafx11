@@ -54,7 +54,7 @@ public class ForexController implements Initializable {
 
     public void moveMain(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 670, 350);
+        Scene scene = new Scene(fxmlLoader.load(), 750, 350);
         StageStore.stage.setTitle("Main");
         StageStore.stage.setScene(scene);
         StageStore.stage.show();
