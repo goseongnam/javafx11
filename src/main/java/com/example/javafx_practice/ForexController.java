@@ -1,11 +1,14 @@
 package com.example.javafx_practice;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,7 +27,6 @@ public class ForexController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        txtForeignExchange.setText("usd");
     }
 
     public void searchForex(ActionEvent actionEvent) {
@@ -48,5 +50,13 @@ public class ForexController implements Initializable {
     }
 
     public void viewGraphYear(ActionEvent actionEvent) {
+    }
+
+    public void moveMain(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Main.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 670, 350);
+        StageStore.stage.setTitle("Main");
+        StageStore.stage.setScene(scene);
+        StageStore.stage.show();
     }
 }
