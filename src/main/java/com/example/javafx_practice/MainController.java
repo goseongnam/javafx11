@@ -193,6 +193,14 @@ public class MainController implements Initializable {
 
     }
     public void pageMove(ActionEvent actionEvent) throws IOException {// 메인에서 환율조회 화면으로 이동
+        if (currencytmp==null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Look, a Warning Dialog");
+            alert.setContentText("이동할 나라를 선택하세요");
+            alert.showAndWait();
+            return;
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("forex.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
         StageStore.stage.setTitle(currencytmp);
