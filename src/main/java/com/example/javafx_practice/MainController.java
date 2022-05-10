@@ -36,6 +36,14 @@ public class MainController implements Initializable {
     public String currencytmp = null;
     public Button btnBookmarkDelete;
 
+    public String selectedTmp = null;
+    //Alert클릭 시 alertscene에 추가
+    public TextField txtAlertInput;
+    public String alertAmount = null;
+    // 환율변환 관련 텍스트필드
+    public TextField txtExInput;
+    public TextField txtExOutput;
+
 
     String[] currencyArrayList = {"AED 아랍에미리트 디르함", "AUD 호주 달러", "BHD 바레인 디나르", "BND 브루나이 달러", "CAD 캐나다 달러", "CHF 스위스 프랑",
             "CNH 위안화", "DKK 덴마아크 크로네", "EUR 유로", "GBP 영국 파운드", "HKD 홍콩 달러", "IDR 인도네시아 루피아", "JPY 일본 옌", "KWD 쿠웨이트 디나르",
@@ -67,7 +75,8 @@ public class MainController implements Initializable {
         lstNationalRate.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
+                String strItem = (String) lstNationalChange.getSelectionModel().getSelectedItem();
+                selectedTmp = strItem;
             }
         });
     }
@@ -208,10 +217,40 @@ public class MainController implements Initializable {
         StageStore.stage.show();
     }
 
-    public void alertClick(ActionEvent actionEvent) {
-    }
+    public void alertClick(ActionEvent actionEvent) throws IOException {
+        String currency = currencytmp.substring(0, 3);
+        alertAmount = txtAlertInput.getText(); //txtAlertInput은 입력 금액임
+        String AlertStackSet = currency + " " + alertAmount;
 
-    public void AlertPageMove(ActionEvent actionEvent) {
+        String tmpArr[] = new String[]{"","","","","","","","","",""};
+        File file = new File("C:\\fxfile\\Alert.txt");
+        String path = "C:\\fxfile"; //폴더 경로
+        readFile_Alert(file, path, tmpArr);
+        for(int i=0; i<tmpArr.length; i++) {
+            System.out.println(tmpArr[i]);
+        }
+        if (!checkDuplicate_Alert(tmpArr, AlertStackSet)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Look, a Warning Dialog");
+            alert.setContentText("이미 Alert에 추가되어 있는 항목이거나 최대 등록개수를 초과했습니다.");
+            alert.showAndWait();
+            return;
+        }
+        // 중복체크
+        else {
+            FileOutputStream fos =  new FileOutputStream(file,true);
+            AlertStackSet += "\n";
+            fos.write(AlertStackSet.getBytes());
+            fos.close();
+        }
+    }
+    public void AlertPageMove(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AlertStack.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 550, 390);
+        StageStore.stage.setTitle("AlertStack");
+        StageStore.stage.setScene(scene);
+        StageStore.stage.show();
     }
 
     public void btnBookmarkDelete(ActionEvent actionEvent) throws IOException {
@@ -258,7 +297,31 @@ public class MainController implements Initializable {
         return result;
     }
 
+    public void readFile_Alert(File file, String path, String[] arr) throws IOException {
+        File Folder = new File(path);
+        // 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+        if (!Folder.exists()) {
+            try {
+                Folder.mkdir(); //폴더 생성합니다.
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+        }
+        file.createNewFile();//파일 생성, 만약 이미 있으면 있는거 사용.
 
+        FileReader filereader = new FileReader(file);
+        BufferedReader bufReader = new BufferedReader(filereader);
+
+        String line = "";
+        int i = 0;
+        while((line = bufReader.readLine()) != null){
+            arr[i]=line;
+            i++;
+        }
+
+        bufReader.close();
+        filereader.close();
+    }
     public void moveBookmark(ActionEvent actionEvent) throws IOException {
 
         Button o = (Button)actionEvent.getSource();
@@ -277,4 +340,31 @@ public class MainController implements Initializable {
         StageStore.stage.setScene(scene);
         StageStore.stage.show();
     }
+    public boolean checkDuplicate_Alert(String[] arr, String test) {
+        if (arr[9]!=null&&!arr[9].equals("")) return false;//즐겨찾기 최대 개수 초과
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (!arr[i].equals("")) {
+                count++;
+            }//여기서 파일에서 읽어서 넣은 배열의 크기를 카운트
+        }
+        Set<String> set = new HashSet<String>(); // set of timeline
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals("")||arr[i]==null) break;
+            set.add(arr[i]);
+        }
+        set.add(test);
+        if (count + 1 != set.size()) {
+            return false;
+        }
+        return true;
+    }
+    public void btnChk_Calculate(ActionEvent actionEvent) {
+        int tmpValue = 10; //여기서는 selectedTmp의 통화를 네트워크로 보냄
+        String inputCurrency = txtExInput.getText(); // 이걸 이용해서 네트워크로 값 받아와서 tmpValue에 키워 넣는거지
+        int currentExchange = Integer.parseInt(inputCurrency) * tmpValue;
+        txtExOutput.setText(String.valueOf(currentExchange));
+    }
+
 }

@@ -39,6 +39,9 @@ public class ForexController implements Initializable {
     ObservableList<XYChart.Series<Number, Number>> list;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        txtDateOutput.setDisable(true);
+        txtAverageOutput.setDisable(true);
+        txtStandardDeviationOutput.setDisable(true);
         txtDateInput.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -50,7 +53,7 @@ public class ForexController implements Initializable {
         });
     }
 
-    public void searchForex(ActionEvent actionEvent) throws MalformedURLException {
+    public void searchForex(ActionEvent actionEvent) throws MalformedURLException {//서버로 데이터 전송 및 수신
 
         String title=StageStore.stage.getTitle();
         String forex =title.substring(0,3);
@@ -81,7 +84,7 @@ public class ForexController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Look, a Warning Dialog");
-            alert.setContentText("조회할 수 없는 날짜를 입력하셨습니다.");
+            alert.setContentText("조회할 수 없는 날짜를 입력하셨습니다(존재하지 않는 날짜 혹은 휴일).");
             alert.showAndWait();
             return;
         }
@@ -90,7 +93,7 @@ public class ForexController implements Initializable {
 
     }
 
-    public void viewGraphMonth(ActionEvent actionEvent) {
+    public void viewGraphMonth(ActionEvent actionEvent) {//서버로 데이터 전송 및 수신
 
         String title=StageStore.stage.getTitle();
         String forex =title.substring(0,3);
@@ -115,7 +118,7 @@ public class ForexController implements Initializable {
         arrayListPrice.add("2000");
         arrayListPrice.add("1100");
         arrayListPrice.add("1500");
-        //샘플 데이터.
+        //아직 연결 안됬으니 샘플 데이터 지정.
 
 
         chart.getData().clear();
@@ -133,23 +136,44 @@ public class ForexController implements Initializable {
 
     }
 
-    public void viewGraphYear(ActionEvent actionEvent) {
+    public void viewGraphYear(ActionEvent actionEvent) {//서버로 데이터 전송 및 수신
+
+        String title=StageStore.stage.getTitle();
+        String forex =title.substring(0,3);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+        String endDate = df.format(cal.getTime());
+        cal.add(Calendar.YEAR, -1);
+        String startDate =  df.format(cal.getTime());
+
+        System.out.println("current: " + startDate);
+        System.out.println("after: " + endDate);
+        // send 로 서버에 startDate.endDate,Forex 파라매터로 넘겨줌 ex>20220410 20220510 USD
+        // 이후로 receive() 한 이후에 그래프 그리기 이때 받는 데이터는 ArrayList<String> 이고 각 string 타입에는 시작날짜 부터 각각의 날짜의 가격이 저장되어있음;
+
+        ArrayList<String> arrayListPrice= new ArrayList<>();
+        arrayListPrice.add("2000");
+        arrayListPrice.add("1000");
+        arrayListPrice.add("2500");
+        arrayListPrice.add("1000");
+        arrayListPrice.add("2100");
+        arrayListPrice.add("1500");
+        //아직 연결 안됬으니 샘플 데이터 지정.
+
 
         chart.getData().clear();
+        list = FXCollections.observableArrayList();
+
         XYChart.Series series = new XYChart.Series();
         series.setName("Year Data");
-        series.getData().add(new XYChart.Data(1, 3));
-        series.getData().add(new XYChart.Data(2, 4));
-        series.getData().add(new XYChart.Data(3, 5));
-        series.getData().add(new XYChart.Data(4, 4));
-        series.getData().add(new XYChart.Data(5, 4));
-        series.getData().add(new XYChart.Data(6, 6));
-        series.getData().add(new XYChart.Data(7, 2));
-        series.getData().add(new XYChart.Data(8, 5));
-        series.getData().add(new XYChart.Data(9, 3));
-        series.getData().add(new XYChart.Data(10, 7));
-        series.getData().add(new XYChart.Data(11, 9));
-        series.getData().add(new XYChart.Data(12, 5));
+        for (int i=0;i<arrayListPrice.size();i++){
+            series.getData().add(new XYChart.Data(i,Double.valueOf(arrayListPrice.get(i))));
+        }
+
+
         list.addAll(series);
         chart.setData(list);
     }
