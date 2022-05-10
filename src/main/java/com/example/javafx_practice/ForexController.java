@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -126,10 +127,26 @@ public class ForexController implements Initializable {
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Month Data");
+        double totalPrice = 0d;
+
         for (int i=0;i<arrayListPrice.size();i++){
-            series.getData().add(new XYChart.Data(i,Double.valueOf(arrayListPrice.get(i))));
+            double price = Double.valueOf(arrayListPrice.get(i));//bkpr값
+            series.getData().add(new XYChart.Data(i,price));
+            totalPrice += price;
+
+        }
+        DecimalFormat form = new DecimalFormat("#.##");
+        Double average= totalPrice/arrayListPrice.size();
+        txtAverageOutput.setText("평균: "+form.format(average));//평균
+
+        double dsum=0d;
+        for(int i=0; i<arrayListPrice.size(); i++){
+            double price = Double.valueOf(arrayListPrice.get(i));//bkpr값
+            dsum += (price-average)*(price-average);
         }
 
+        double sd = Math.sqrt(dsum/arrayListPrice.size());
+        txtStandardDeviationOutput.setText("표준편차: "+form.format(sd));//표준편차
 
         list.addAll(series);
         chart.setData(list);
@@ -169,10 +186,26 @@ public class ForexController implements Initializable {
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Year Data");
+        double totalPrice = 0d;
+
         for (int i=0;i<arrayListPrice.size();i++){
-            series.getData().add(new XYChart.Data(i,Double.valueOf(arrayListPrice.get(i))));
+            double price = Double.valueOf(arrayListPrice.get(i));//bkpr값
+            series.getData().add(new XYChart.Data(i,price));
+            totalPrice += price;
+
+        }
+        DecimalFormat form = new DecimalFormat("#.##");
+        Double average= totalPrice/arrayListPrice.size();
+        txtAverageOutput.setText("평균: "+form.format(average));//평균
+
+        double dsum=0d;
+        for(int i=0; i<arrayListPrice.size(); i++){
+            double price = Double.valueOf(arrayListPrice.get(i));//bkpr값
+            dsum += (price-average)*(price-average);
         }
 
+        double sd = Math.sqrt(dsum/arrayListPrice.size());
+        txtStandardDeviationOutput.setText("표준편차: "+form.format(sd));//표준편차
 
         list.addAll(series);
         chart.setData(list);
