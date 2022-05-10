@@ -1,6 +1,5 @@
 package com.example.javafx_practice;
 
-import api.Api;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,8 +17,13 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ForexController implements Initializable {
@@ -47,16 +51,15 @@ public class ForexController implements Initializable {
     }
 
     public void searchForex(ActionEvent actionEvent) throws MalformedURLException {
-        LocalDate rawLocalDate =LocalDate.now();
-        String nowDate = rawLocalDate.format(DateTimeFormatter.BASIC_ISO_DATE);
+
         String title=StageStore.stage.getTitle();
         String forex =title.substring(0,3);
         System.out.println("forex:"+ forex);
         String DateInput="";
 
+        DateInput = txtDateInput.getText();
         if (txtDateInput.getText()!=null){
-            DateInput = txtDateInput.getText();
-            if(DateInput.length()!=8){
+            if(DateInput.length()!=8){//날짜 입력이 올바른지 체킹
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setHeaderText("Look, a Warning Dialog");
@@ -69,28 +72,9 @@ public class ForexController implements Initializable {
         }
         double forexValue= 1100d;
         boolean isError= false;
-        if (true) {
-       //if (txtDateInput.getText().equals(nowDate)){
-            //db에 접근하지 않고 바로 api 호출.
-            //만약 결과값이 null이면 Alert 실행
-            // 주말이거나 공휴일이라서 환율 조회 불가능.
-            Api api =new Api();
-            forexValue = api.apiExecutuon("20220506",forex);
-            if (forexValue!=0){
-                txtDateOutput.setText(Double.toString(forexValue));
-                return;
-            }else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText("Look, a Warning Dialog");
-                alert.setContentText("주말이거나 공휴일을 입력하셨습니다.");
-                alert.showAndWait();
-                return;
-            }
 
-        }
-        // 서버에 DateInput를 넘겨준다. send()함수 사용.
-
+        // 서버에 DateInput를 넘겨준다. send()함수 사용
+        // 이때 파라매터로 String DateInput 날짜 ex)20200804, String forex 외환 종류 ex)USD 두개를 서버에 넘긴다
         // receive()함수를 통해서 해당 날짜의 환율을 가져온다.
         // 만약 에러가 있다면 isError=true로 한다.
         if (isError){
@@ -108,26 +92,42 @@ public class ForexController implements Initializable {
 
     public void viewGraphMonth(ActionEvent actionEvent) {
 
+        String title=StageStore.stage.getTitle();
+        String forex =title.substring(0,3);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+        String endDate = df.format(cal.getTime());
+        cal.add(Calendar.MONTH, -1);
+        String startDate =  df.format(cal.getTime());
+
+        System.out.println("current: " + startDate);
+        System.out.println("after: " + endDate);
+        // send 로 서버에 startDate.endDate,Forex 파라매터로 넘겨줌 ex>20220410 20220510 USD
+        // 이후로 receive() 한 이후에 그래프 그리기 이때 받는 데이터는 ArrayList<String> 이고 각 string 타입에는 시작날짜 부터 각각의 날짜의 가격이 저장되어있음;
+
+        ArrayList<String> arrayListPrice= new ArrayList<>();
+        arrayListPrice.add("1000");
+        arrayListPrice.add("2000");
+        arrayListPrice.add("1500");
+        arrayListPrice.add("2000");
+        arrayListPrice.add("1100");
+        arrayListPrice.add("1500");
+        //샘플 데이터.
+
+
         chart.getData().clear();
         list = FXCollections.observableArrayList();
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Month Data");
-//        series.getData().add(new XYChart.Data(1, 6));
-//        series.getData().add(new XYChart.Data(2, 4));
-//        series.getData().add(new XYChart.Data(3, 5));
-//        series.getData().add(new XYChart.Data(4, 4));
-//        series.getData().add(new XYChart.Data(5, 4));
-//        series.getData().add(new XYChart.Data(6, 6));
-//        series.getData().add(new XYChart.Data(7, 2));
-//        series.getData().add(new XYChart.Data(8, 5));
-//        series.getData().add(new XYChart.Data(9, 3));
-//        series.getData().add(new XYChart.Data(10, 7));
-//        series.getData().add(new XYChart.Data(11, 9));
-//        series.getData().add(new XYChart.Data(12, 5));
+        for (int i=0;i<arrayListPrice.size();i++){
+            series.getData().add(new XYChart.Data(i,Double.valueOf(arrayListPrice.get(i))));
+        }
 
-        int xDay = 0;
-        int yPrice = 0;
+
         list.addAll(series);
         chart.setData(list);
 
