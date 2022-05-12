@@ -40,7 +40,6 @@ public class AddAlertController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
         lstNationalChange.setItems(FXCollections.observableArrayList(currencyArrayList));
         lstNationalChange.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
