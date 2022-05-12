@@ -1,4 +1,4 @@
-package com.example.javafx_practice;
+package com.example.javafx_practice.item;
 
 import javafx.stage.Stage;
 

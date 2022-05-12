@@ -1,5 +1,7 @@
 package com.example.javafx_practice;
 
+import com.example.javafx_practice.item.StageStore;
+import com.example.javafx_practice.item.WindowSize;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +14,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -20,8 +23,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +31,7 @@ import java.util.ResourceBundle;
 public class ForexController implements Initializable {
 
     public TextField txtDateInput;
-    public TextField txtDateOutput;
+    public TextArea txtDateOutput;
     public Button btnDateOk;
     public Button btnMonth;
     public Button btnYear;
@@ -56,7 +57,7 @@ public class ForexController implements Initializable {
 
     public void searchForex(ActionEvent actionEvent) throws MalformedURLException {//서버로 데이터 전송 및 수신
 
-        String title=StageStore.stage.getTitle();
+        String title= StageStore.stage.getTitle();
         String forex =title.substring(0,3);
         System.out.println("forex:"+ forex);
         String DateInput="";
@@ -213,7 +214,7 @@ public class ForexController implements Initializable {
 
     public void moveMain(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 750, 350);
+        Scene scene = new Scene(fxmlLoader.load(), WindowSize.MAIN_X, WindowSize.MAIN_Y);
         StageStore.stage.setTitle("Main");
         StageStore.stage.setScene(scene);
         StageStore.stage.show();

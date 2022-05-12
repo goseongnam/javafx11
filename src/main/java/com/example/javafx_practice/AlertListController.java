@@ -1,5 +1,7 @@
 package com.example.javafx_practice;
 
+import com.example.javafx_practice.item.StageStore;
+import com.example.javafx_practice.item.WindowSize;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,12 +12,11 @@ import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
-public class AlertStackController implements Initializable {
+public class AlertListController implements Initializable {
     public TextField txtAlertSet1;
     public TextField txtAlertSet2;
     public TextField txtAlertSet3;
@@ -181,7 +182,7 @@ public class AlertStackController implements Initializable {
 
     public void moveMain(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("Main.fxml"));
-        Scene scene1 = new Scene(fxmlLoader1.load(), 750, 350);
+        Scene scene1 = new Scene(fxmlLoader1.load(), WindowSize.MAIN_X, WindowSize.MAIN_Y);
         StageStore.stage.setTitle("Foreign exchange information provision system");
         StageStore.stage.setScene(scene1);
         StageStore.stage.show();
