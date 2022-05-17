@@ -1,17 +1,17 @@
 package persistence;
 
-public class GraphDTO {
+public class ReqGraphDTO {
     private String startDate;
     private String endDate;
     private String forex;
 
-    public GraphDTO(String startDate, String endDate, String forex) {
+    public ReqGraphDTO(String startDate, String endDate, String forex) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.forex = forex;
     }
 
-    public GraphDTO() {
+    public ReqGraphDTO() {
     }
 
     public String getStartDate() {

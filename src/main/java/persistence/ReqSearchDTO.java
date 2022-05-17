@@ -1,15 +1,15 @@
 package persistence;
 
-public class SearchRequestDTO {
+public class ReqSearchDTO {
     private String dateInput;
     private String forex;
 
-    public SearchRequestDTO(String dateInput, String forex) {
+    public ReqSearchDTO(String dateInput, String forex) {
         this.dateInput = dateInput;
         this.forex = forex;
     }
 
-    public SearchRequestDTO() {
+    public ReqSearchDTO() {
     }
 
     public String getDateInput() {

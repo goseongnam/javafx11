@@ -2,16 +2,17 @@ package persistence;
 
 import java.io.Serializable;
 
-public class AlertRequestDTO implements Serializable {
+public class ResAlertDTO implements Serializable {
     private String currencytmp;
     private String alertAmount;
-    private int alertNum;
+    private boolean judgement;
 
-    public AlertRequestDTO(String currencytmp, String alertAmount, int alertNum) {
+    public ResAlertDTO(String currencytmp, String alertAmount, boolean judgement) {
         this.currencytmp = currencytmp;
         this.alertAmount = alertAmount;
-        this.alertNum = alertNum;
+        this.judgement = judgement;
     }
+
     public String getCurrencytmp() {
         return currencytmp;
     }
@@ -28,12 +29,11 @@ public class AlertRequestDTO implements Serializable {
         this.alertAmount = alertAmount;
     }
 
-    public int getAlertNum() {
-        return alertNum;
+    public boolean isJudgement() {
+        return judgement;
     }
 
-    public void setAlertNum(int alertNum) {
-        this.alertNum = alertNum;
+    public void setJudgement(boolean judgement) {
+        this.judgement = judgement;
     }
-
 }

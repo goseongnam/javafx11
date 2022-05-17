@@ -2,10 +2,10 @@ package persistence;
 
 import java.io.Serializable;
 
-public class CalculationResponseDTO implements Serializable {
+public class ResCalculationDTO implements Serializable {
     private double resultExchange;
 
-    public CalculationResponseDTO(double resultExchange) {
+    public ResCalculationDTO(double resultExchange) {
         this.resultExchange = resultExchange;
     }
 

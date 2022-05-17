@@ -1,6 +1,6 @@
 package persistence;
 
-public class SearchResponseDTO {
+public class ResSearchDTO {
     private String date;
     private String unit;
     private String ttb;
@@ -8,7 +8,7 @@ public class SearchResponseDTO {
     private String deal;
     private String bkpr;
 
-    public SearchResponseDTO(String date, String unit, String ttb, String tts, String deal, String bkpr) {
+    public ResSearchDTO(String date, String unit, String ttb, String tts, String deal, String bkpr) {
         this.date = date;
         this.unit = unit;
         this.ttb = ttb;

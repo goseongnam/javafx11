@@ -2,12 +2,12 @@ package persistence;
 
 import java.io.Serializable;
 
-public class CalculationRequestDTO implements Serializable {
+public class ReqCalculationDTO implements Serializable {
     private String currencytmp;
     private long currentExchange;
     private String exchangeOption;
 
-    public CalculationRequestDTO(String currencytmp, long currentExchange, String exchangeOption) {
+    public ReqCalculationDTO(String currencytmp, long currentExchange, String exchangeOption) {
         this.currencytmp = currencytmp;
         this.currentExchange = currentExchange;
         this.exchangeOption = exchangeOption;

@@ -3,7 +3,7 @@ package com.example.javafx_practice.item;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import persistence.CalculationRequestDTO;
+import persistence.ReqCalculationDTO;
 
 public class Calculation {
     public static void btnChk_Calculate(String currencytmp_tmp, ChoiceBox choiceMethod, TextField txtExInput, TextField txtExOutput) {
@@ -39,7 +39,7 @@ public class Calculation {
         int currentExchange = Integer.parseInt(inputCurrency);
         //이 부분에 네트워크로 String currencytmp(선택통화), int currentExchange(환율계산입력값), String exchangeOption(파고살때 달라지는 옵션)
         //을 서버에게 보내고 해당하는 값을 반환받음
-        persistence.CalculationRequestDTO calculationRequestDTO = new CalculationRequestDTO(currencytmp, currentExchange, exchangeOption);
+        ReqCalculationDTO calculationRequestDTO = new ReqCalculationDTO(currencytmp, currentExchange, exchangeOption);
         txtExOutput.setText(String.valueOf(currentExchange));
     }
 }
