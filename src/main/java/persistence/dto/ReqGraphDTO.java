@@ -1,4 +1,4 @@
-package persistence;
+package persistence.dto;
 
 public class ReqGraphDTO {
     private String startDate;

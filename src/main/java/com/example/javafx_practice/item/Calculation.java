@@ -3,7 +3,7 @@ package com.example.javafx_practice.item;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import persistence.ReqCalculationDTO;
+import persistence.dto.ReqCalculationDTO;
 
 public class Calculation {
     public static void btnChk_Calculate(String currencytmp_tmp, ChoiceBox choiceMethod, TextField txtExInput, TextField txtExOutput) {

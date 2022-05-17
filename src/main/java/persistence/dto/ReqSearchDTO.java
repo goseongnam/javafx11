@@ -1,4 +1,4 @@
-package persistence;
+package persistence.dto;
 
 public class ReqSearchDTO {
     private String dateInput;

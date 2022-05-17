@@ -1,4 +1,4 @@
-package persistence;
+package persistence.dto;
 
 import java.io.Serializable;
 
