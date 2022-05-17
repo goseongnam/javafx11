@@ -1,5 +1,6 @@
 package com.example.javafx_practice;
 
+import com.example.javafx_practice.item.AlertSet;
 import com.example.javafx_practice.item.StageStore;
 import com.example.javafx_practice.item.WindowSize;
 import javafx.event.ActionEvent;
@@ -39,6 +40,7 @@ public class AlertListController implements Initializable {
     public CheckBox chkAlert9;
     public CheckBox chkAlert10;
     TextField[] alertArr;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         alertArr = new TextField[10];
@@ -55,8 +57,6 @@ public class AlertListController implements Initializable {
         loadAlert(alertArr);
     }
     public void loadAlert(TextField[] alertArr){
-
-
         Path path = Paths.get("C:/fxfile/Alert.txt");
         try {
             File file = new File("C:/fxfile/Alert.txt");
@@ -111,12 +111,17 @@ public class AlertListController implements Initializable {
                     readFile(file, path, arrAlert); //read해서 arrAlert배열 안에다가 넣는거임.
                     String[] result = deleteAlert(arrAlert, alertArr[i].getText());
                     writeFile(file, result);
-                    alertArr[i].setText("");
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("알림");
                     alert.setHeaderText("Look, CONFIRMATION");
                     alert.setContentText("해당 알림이 삭제되었습니다.");
                     alert.showAndWait();
+
+                    //timer를 지우는 코드가 여기 들어가야 함.
+                    //AlertSet.timerArrList.remove(지워야할 오브젝트가 들어감);
+                    String deleteAlertArr = alertArr[i].getText();
+                    //deleteAlertArr을 통화하고 가격으로 자른다음에 다른 변수에 넣고 for문으로 arrayList를 탐색해서 timer를 멈춤
+                    alertArr[i].setText("");
                 }
             }
         }

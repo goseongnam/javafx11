@@ -9,5 +9,4 @@ public class WindowSize {
     public final static int BOOKMARK_X=738, BOOKMART_Y=312;
     public final static int CALCULATOR_X=690, CALCULATOR_Y=441;
 
-
 }

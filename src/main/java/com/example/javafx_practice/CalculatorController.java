@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -28,6 +29,7 @@ public class CalculatorController implements Initializable {
     // 환율변환 관련 텍스트필드
     public TextField txtExInput;
     public TextField txtExOutput;
+    public ChoiceBox choiceMethod;
     String[] currencyArrayList = {"AED 아랍에미리트 디르함", "AUD 호주 달러", "BHD 바레인 디나르", "BND 브루나이 달러", "CAD 캐나다 달러", "CHF 스위스 프랑",
             "CNH 위안화", "DKK 덴마아크 크로네", "EUR 유로", "GBP 영국 파운드", "HKD 홍콩 달러", "IDR 인도네시아 루피아", "JPY 일본 옌", "KWD 쿠웨이트 디나르",
             "MYR 말레이지아 링기트", "NOK 노르웨이 크로네", "NZD 뉴질랜드 달러", "SAR 사우디 리얄", "SEK 스웨덴 크로나", "SGD 싱가포르 달러", "THB 태국 바트", "USD 미국 달러"};
@@ -43,9 +45,23 @@ public class CalculatorController implements Initializable {
                 currencytmp = strItem;
             }
         });
+        txtExInput.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    txtExInput.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        txtExOutput.setDisable(true);
+        choiceMethod.getItems().add("BKPR (장부가격 기준)");
+        choiceMethod.getItems().add("TTB (전신환 매입율 기준)");
+        choiceMethod.getItems().add("TTS (전신환매도율 기준)");
+        choiceMethod.getItems().add("DEAL (매매율 기준)");
     }
     public void btnChk_Calculate(ActionEvent actionEvent) {
-        Calculation.btnChk_Calculate(txtExInput, txtExOutput);
+        Calculation.btnChk_Calculate(currencytmp, choiceMethod, txtExInput, txtExOutput);
     }
 
     public void moveMain(ActionEvent actionEvent) throws IOException {

@@ -1,16 +1,24 @@
 package com.example.javafx_practice.item;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class AlertSet {
+    private static int alertNum = 0;
+    public static ArrayList<Object> timerArrList = new ArrayList<Object>();
+
     public static void alertClick(TextField txtAlertInput, String currencytmp, String alertAmount) throws IOException {
+        System.out.println(txtAlertInput.getText());
         if (currencytmp == null || currencytmp.equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("경고");
@@ -52,16 +60,27 @@ public class AlertSet {
             AlertStackSet += "\n";
             fos.write(AlertStackSet.getBytes());
             fos.close();
+
+            //여기서 새로운 timer가 만들어져야 함.
+            //여기서 AlertTimerObject를 만들어서 ArrayList에 채워넣음
+            alertNum += 1; //식별숫자는 생성할때마다 계속늘어나는 거지.
+            Timer alertTimer = new Timer(6000000, new ActionListener() {
+                public void actionPerformed (ActionEvent e)
+                {
+                   //네트워크 보내는 코드-여기서 String currencytmp(선택통화), String alertAmount(입력가격)
+                    //를 서버에게 보내고
+                }
+            });
+            alertTimer.start();
+
+            AlertTimerObject alertTimerObject = new AlertTimerObject(currencytmp, alertAmount, alertTimer);
+            timerArrList.add(alertTimerObject);
+
+
+
+            //여기 부분에 서버로부터 String currencytmp, String alertAmount, boolean judgement를 받아서 boolean값이 true인
+            //경우에 여기서 알림창을 띄우는거지
         }
-    }
-    static void swingTimer_Alert(String currency, String alertAmount) {
-        TimerStore.timer = new Timer(600000, new ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                //여기서 네트워크로 보냄
-            }
-        });
-        TimerStore.timer.start();
     }
 
     public static boolean checkDuplicate_Alert(String[] arr, String test) {

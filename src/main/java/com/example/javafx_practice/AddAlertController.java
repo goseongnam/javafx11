@@ -48,8 +48,17 @@ public class AddAlertController implements Initializable {
                 currencytmp = strItem;
             }
         });
+        txtAlertInput.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    txtAlertInput.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
 
-
+        //여기 부분에서 파일에서 읽어와서 arraylist에다가 추가해줘야 함.
     }
 
     public void alertClick(ActionEvent actionEvent) throws IOException {
