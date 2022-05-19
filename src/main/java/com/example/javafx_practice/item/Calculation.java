@@ -37,9 +37,20 @@ public class Calculation {
             return;
         }
         int currentExchange = Integer.parseInt(inputCurrency);
-        //이 부분에 네트워크로 String currencytmp(선택통화), int currentExchange(환율계산입력값), String exchangeOption(파고살때 달라지는 옵션)
-        //을 서버에게 보내고 해당하는 값을 반환받음
         ReqCalculationDTO calculationRequestDTO = new ReqCalculationDTO(currencytmp, currentExchange, exchangeOption);
-        txtExOutput.setText(String.valueOf(currentExchange));
+        sendCalculation(calculationRequestDTO);
+        receiveCalculation();
+    }
+
+    public static void sendCalculation(ReqCalculationDTO calculationRequestDTO) {
+        //이 부분에 네트워크로 String currencytmp(선택통화), int currentExchange(환율계산입력값), String exchangeOption(파고살때 달라지는 옵션)
+        //을 서버에게 보냄
+    }
+
+    public static void receiveCalculation() {
+        //서버로부터 계산 값을 받음
+
+
+//        txtExOutput.setText(String.valueOf(currentExchange)); //돌려받음 값을 출력에 해당하는 텍스트필드에 출력함.
     }
 }

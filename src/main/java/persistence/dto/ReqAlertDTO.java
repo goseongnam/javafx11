@@ -1,39 +1,22 @@
 package persistence.dto;
 
+import com.example.javafx_practice.item.AlertObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ReqAlertDTO implements Serializable {
-    private String currencytmp;
-    private String alertAmount;
-    private int alertNum;
+    private ArrayList<AlertObject> timerArrList;
 
-    public ReqAlertDTO(String currencytmp, String alertAmount, int alertNum) {
-        this.currencytmp = currencytmp;
-        this.alertAmount = alertAmount;
-        this.alertNum = alertNum;
-    }
-    public String getCurrencytmp() {
-        return currencytmp;
+    public ReqAlertDTO(ArrayList<AlertObject> timerArrList) {
+        this.timerArrList = timerArrList;
     }
 
-    public void setCurrencytmp(String currencytmp) {
-        this.currencytmp = currencytmp;
+    public ArrayList<AlertObject> getTimerArrList() {
+        return timerArrList;
     }
 
-    public String getAlertAmount() {
-        return alertAmount;
+    public void setTimerArrList(ArrayList<AlertObject> timerArrList) {
+        this.timerArrList = timerArrList;
     }
-
-    public void setAlertAmount(String alertAmount) {
-        this.alertAmount = alertAmount;
-    }
-
-    public int getAlertNum() {
-        return alertNum;
-    }
-
-    public void setAlertNum(int alertNum) {
-        this.alertNum = alertNum;
-    }
-
 }

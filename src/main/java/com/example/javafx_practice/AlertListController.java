@@ -1,6 +1,5 @@
 package com.example.javafx_practice;
 
-import com.example.javafx_practice.item.AlertSet;
 import com.example.javafx_practice.item.StageStore;
 import com.example.javafx_practice.item.WindowSize;
 import javafx.event.ActionEvent;
@@ -116,11 +115,6 @@ public class AlertListController implements Initializable {
                     alert.setHeaderText("Look, CONFIRMATION");
                     alert.setContentText("해당 알림이 삭제되었습니다.");
                     alert.showAndWait();
-
-                    //timer를 지우는 코드가 여기 들어가야 함.
-                    //AlertSet.timerArrList.remove(지워야할 오브젝트가 들어감);
-                    String deleteAlertArr = alertArr[i].getText();
-                    //deleteAlertArr을 통화하고 가격으로 자른다음에 다른 변수에 넣고 for문으로 arrayList를 탐색해서 timer를 멈춤
                     alertArr[i].setText("");
                 }
             }

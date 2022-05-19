@@ -1,18 +1,18 @@
 package com.example.javafx_practice;
 
 import com.example.javafx_practice.item.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
+import javafx.stage.Stage;
+import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -47,7 +47,11 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        if (CheckInitTimer.initTimer) {
+            TimerAlert timer = new TimerAlert();
+            timer.start();
+            CheckInitTimer.initTimer=false; //최초 실행시에만 이 타이머를 돌리기에 false로 값을 변경
+        }
     }
 
     public void AlertListPageMove(ActionEvent actionEvent) throws IOException {

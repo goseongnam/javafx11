@@ -10,17 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class AddAlertController implements Initializable {
     @FXML
@@ -57,8 +52,6 @@ public class AddAlertController implements Initializable {
                 }
             }
         });
-
-        //여기 부분에서 파일에서 읽어와서 arraylist에다가 추가해줘야 함.
     }
 
     public void alertClick(ActionEvent actionEvent) throws IOException {
