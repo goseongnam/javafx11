@@ -45,6 +45,7 @@ public class Calculation {
     public static void sendCalculation(ReqCalculationDTO calculationRequestDTO) {
         //이 부분에 네트워크로 String currencytmp(선택통화), int currentExchange(환율계산입력값), String exchangeOption(파고살때 달라지는 옵션)
         //을 서버에게 보냄
+        System.out.println(calculationRequestDTO.getCurrencytmp());
     }
 
     public static void receiveCalculation() {

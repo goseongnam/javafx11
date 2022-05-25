@@ -56,7 +56,7 @@ public class TimerAlert extends Thread {
         }
 
     private void send(ArrayList<AlertObject> alertArr) {
-        //여기 부분에서 alertArr을 서버로 봼
+        //여기 부분에서 alertArr을 서버로 보냄
         
         //alertArr.replaceAll(); 서버로 arrayㅣist를 보내고 나면 arrayList를 밀어버림. 이게 Thread가 작동할 때마다 빈 arrayList를 채워넣으니까
     }

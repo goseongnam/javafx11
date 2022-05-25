@@ -56,6 +56,12 @@ public class AlertSet {
             AlertStackSet += "\n";
             fos.write(AlertStackSet.getBytes());
             fos.close();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("CONFIRMATION");
+            alert.setHeaderText("Look, a CONFIRMATION");
+            alert.setContentText("알림에 추가되었습니다");
+            alert.showAndWait();
+            return;
         }
     }
 
